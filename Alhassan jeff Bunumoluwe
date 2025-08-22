@@ -1,0 +1,396 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/abdulbasityawm-max/Assignments/blob/main/Alhassan%20jeff%20Bunumoluwe\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "SNfttL3Svr03"
+      },
+      "outputs": [],
+      "source": []
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "lcLGSY0Xv1wu",
+        "outputId": "ba6bc1e7-cb52-4674-aa99-a0575b4fbe76"
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "output_type": "stream",
+          "text": [
+            "I'm thinking of a number between 1 and 100, can you guess \n",
+            "Too high,  try again \n",
+            "Too high,  try again \n",
+            "Too high,  try again \n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "#Assignment 3\n",
+        "\n",
+        "#Guessing Game\n",
+        "import random\n",
+        "secret_number = random.randint(1, 100)\n",
+        "guess = 0\n",
+        "print(\"I'm thinking of a number between 1 and 100, can you guess \")\n",
+        "while guess != secret_number:\n",
+        "  try:\n",
+        "     guess = int(input(\"Enter your guess guess: \"))\n",
+        "     if guess < secret_number:\n",
+        "       prints(\"Too low try again\")\n",
+        "     elif guess > secret_number:\n",
+        "       print(\"Too high,  try again \")\n",
+        "     else:\n",
+        "       print(\"Congratulations you got it right\")\n",
+        "  except ValueError:\n",
+        "       print(\"Invalid input. Please enter a whole number \")"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "INmZetlbxAm6"
+      },
+      "outputs": [],
+      "source": [
+        "\n",
+        "#assignment 1\n",
+        "a. Create variables of these types\n",
+        "integer_var = 11\n",
+        "float_var = 25.5\n",
+        "string_var = \"Hello\"\n",
+        "boolean_var = True\n",
+        "\n",
+        "# b. Print each variable with its type\n",
+        "print(integer_var, type(integer_var))\n",
+        "print(float_var, type(float_var))\n",
+        "print(string_var, type(string_var))\n",
+        "print(boolean_var, type(boolean_var))"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "background_save": true
+        },
+        "id": "cuuOQDUV0TWI",
+        "outputId": "c409dca4-0d00-48b0-b98f-2816c4a93b1f"
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "output_type": "stream",
+          "text": [
+            "17 <class 'int'>\n",
+            "50 <class 'str'>\n",
+            "50.0 <class 'float'>\n"
+          ]
+        }
+      ],
+      "source": [
+        "# a. Convert a float 17.77 to an integer\n",
+        "num1 = int(17.77)\n",
+        "print(num1, type(num1))\n",
+        "\n",
+        "# b. Convert an integer 50 to a string\n",
+        "num2 = str(50)\n",
+        "print(num2, type(num2))\n",
+        "\n",
+        "# c. Convert a string \"50\" to a float\n",
+        "num3 = float(\"50\")\n",
+        "print(num3, type(num3))"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "#Assignment 6\n",
+        "import math\n",
+        "\n",
+        "# Base Class\n",
+        "class Formula:\n",
+        "    def calculate(self):\n",
+        "        raise NotImplementedError(\"Subclass must implement this method\")\n",
+        "\n",
+        "# 1. Darcy's Law\n",
+        "class DarcysLaw(Formula):\n",
+        "    def __init__(self, k, h, mu, B, pr, pw, re, rw, s):\n",
+        "        self.k = k      # permeability\n",
+        "        self.h = h      # thickness\n",
+        "        self.mu = mu    # viscosity\n",
+        "        self.B = B      # formation volume factor\n",
+        "        self.pr = pr    # reservoir pressure\n",
+        "        self.pw = pw    # wellbore pressure\n",
+        "        self.re = re    # drainage radius\n",
+        "        self.rw = rw    # wellbore radius\n",
+        "        self.s = s      # skin factor\n",
+        "\n",
+        "    def calculate(self):\n",
+        "        try:\n",
+        "            q = (self.k * self.h / (self.mu * self.B)) * \\\n",
+        "                ((self.pr - self.pw) / (141.2 * math.log(self.re/self.rw) + self.s))\n",
+        "            return q\n",
+        "        except ZeroDivisionError:\n",
+        "            return \"Error: Division by zero in Darcy's Law\"\n",
+        "        except Exception as e:\n",
+        "            return f\"Unexpected error: {e}\"\n",
+        "\n",
+        "# 2. Material Balance Equation (Simplified Oil)\n",
+        "class MaterialBalance(Formula):\n",
+        "    def __init__(self, N, pi, p, Bo):\n",
+        "        self.N = N      # Oil in place\n",
+        "        self.pi = pi    # Initial pressure\n",
+        "        self.p = p      # Current pressure\n",
+        "        self.Bo = Bo    # Oil formation volume factor\n",
+        "\n",
+        "    def calculate(self):\n",
+        "        try:\n",
+        "            Np = ((self.pi - self.p) / self.Bo) * self.N\n",
+        "            return Np\n",
+        "        except ZeroDivisionError:\n",
+        "            return \"Error: Bo cannot be zero\"\n",
+        "        except Exception as e:\n",
+        "            return f\"Unexpected error: {e}\"\n",
+        "\n",
+        "# 3. API Gravity\n",
+        "class APIGravity(Formula):\n",
+        "    def __init__(self, SG):\n",
+        "        self.SG = SG    # Specific Gravity\n",
+        "\n",
+        "    def calculate(self):\n",
+        "        try:\n",
+        "            api = (141.5 / self.SG) - 131.5\n",
+        "            return api\n",
+        "        except ZeroDivisionError:\n",
+        "            return \"Error: Specific Gravity cannot be zero\"\n",
+        "        except Exception as e:\n",
+        "            return f\"Unexpected error: {e}\"\n",
+        "\n",
+        "# 4. Gas Compressibility Factor (Z-factor, simple form)\n",
+        "class ZFactor(Formula):\n",
+        "    def __init__(self, Ppr, Tpr):\n",
+        "        self.Ppr = Ppr  # Pseudo-reduced pressure\n",
+        "        self.Tpr = Tpr  # Pseudo-reduced temperature\n",
+        "\n",
+        "    def calculate(self):\n",
+        "        try:\n",
+        "            z = 1 - (3.52 * self.Ppr * math.exp(-0.87 * self.Tpr)) \\\n",
+        "                  + (0.274 * self.Ppr**2 * math.exp(-0.87 * self.Tpr))\n",
+        "            return z\n",
+        "        except Exception as e:\n",
+        "            return f\"Unexpected error: {e}\"\n",
+        "\n",
+        "# 5. Water Cut\n",
+        "class WaterCut(Formula):\n",
+        "    def __init__(self, qw, qo):\n",
+        "        self.qw = qw    # water flow rate\n",
+        "        self.qo = qo    # oil flow rate\n",
+        "\n",
+        "    def calculate(self):\n",
+        "        try:\n",
+        "            wc = (self.qw / (self.qo + self.qw)) * 100\n",
+        "            return wc\n",
+        "        except ZeroDivisionError:\n",
+        "            return \"Error: Total liquid rate cannot be zero\"\n",
+        "        except Exception as e:\n",
+        "            return f\"Unexpected error: {e}\"\n",
+        "\n",
+        "# 6. Gas-Oil Ratio\n",
+        "class GOR(Formula):\n",
+        "    def __init__(self, qg, qo):\n",
+        "        self.qg = qg    # gas rate\n",
+        "        self.qo = qo    # oil rate\n",
+        "\n",
+        "    def calculate(self):\n",
+        "        try:\n",
+        "            rs = self.qg / self.qo\n",
+        "            return rs\n",
+        "        except ZeroDivisionError:\n",
+        "            return \"Error: Oil rate cannot be zero\"\n",
+        "        except Exception as e:\n",
+        "            return f\"Unexpected error: {e}\"\n",
+        "\n",
+        "# --------------------------\n",
+        "# Example Usage\n",
+        "# --------------------------\n",
+        "\n",
+        "formulas = [\n",
+        "    DarcysLaw(100, 50, 1.2, 1.1, 3500, 1000, 1000, 0.25, 0),\n",
+        "    MaterialBalance(1000000, 3500, 3000, 1.2),\n",
+        "    APIGravity(0.85),\n",
+        "    ZFactor(1.5, 2),\n",
+        "    WaterCut(500, 1500),\n",
+        "    GOR(200000, 5000)\n",
+        "]\n",
+        "\n",
+        "for f in formulas:\n",
+        "    print(f\"{f.__class__.__name__}: {f.calculate()}\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "1Y_szecC6LZm",
+        "outputId": "a399fe4b-9363-4731-af6c-3e0b058f796a"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "DarcysLaw: 8086.0189499382195\n",
+            "MaterialBalance: 416666666.6666667\n",
+            "APIGravity: 34.970588235294116\n",
+            "ZFactor: 0.1814606117226351\n",
+            "WaterCut: 25.0\n",
+            "GOR: 40.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#assignment 2\n",
+        "\n",
+        "import string\n",
+        "import math\n",
+        "\n",
+        "# --------------------\n",
+        "# Task 1: Convert all uppercase to lowercase\n",
+        "def task1(s: str) -> str:\n",
+        "    return s.lower()\n",
+        "\n",
+        "# --------------------\n",
+        "# Task 2: Swap uppercase ↔ lowercase\n",
+        "def task2(s: str) -> str:\n",
+        "    return s.swapcase()\n",
+        "\n",
+        "# --------------------\n",
+        "# Task 3: Remove uppercase letters\n",
+        "def task3(s: str) -> str:\n",
+        "    return ''.join(ch for ch in s if not ch.isupper())\n",
+        "\n",
+        "# --------------------\n",
+        "# Task 4: Count uppercase and lowercase\n",
+        "def task4(s: str) -> str:\n",
+        "    upper = sum(1 for ch in s if ch.isupper())\n",
+        "    lower = sum(1 for ch in s if ch.islower())\n",
+        "    return f\"Uppercase: {upper}, Lowercase: {lower}\"\n",
+        "\n",
+        "# --------------------\n",
+        "# Task 5: Remove non-English letters\n",
+        "def task5(s: str) -> str:\n",
+        "    return ''.join(ch for ch in s if ch.isalpha())\n",
+        "\n",
+        "# --------------------\n",
+        "# Task 6: Heron’s formula for triangle area\n",
+        "def task6(a: float, b: float, c: float) -> float:\n",
+        "    s = (a + b + c) / 2\n",
+        "    area = math.sqrt(s * (s - a) * (s - b) * (s - c))\n",
+        "    return area\n",
+        "\n",
+        "# --------------------\n",
+        "# Task 7: Format names in a table\n",
+        "def task7(names: list):\n",
+        "    print(\"Formatted Names Table:\\n\")\n",
+        "    for name in names:\n",
+        "        print(name.ljust(15), name.center(20), name.rjust(15))\n",
+        "\n",
+        "# --------------------\n",
+        "# Task 8: Clean string\n",
+        "def task8(s: str) -> dict:\n",
+        "    cleaned = {}\n",
+        "    cleaned[\"strip\"] = s.strip()\n",
+        "    cleaned[\"no_punctuation\"] = s.translate(str.maketrans('', '', string.punctuation))\n",
+        "    cleaned[\"no_spaces\"] = s.replace(\" \", \"\")\n",
+        "    return cleaned\n",
+        "\n",
+        "\n",
+        "# ==========================\n",
+        "# TESTING\n",
+        "# ==========================\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "\n",
+        "    print(\"Task 1:\", task1(\"Hello\"))\n",
+        "    print(\"Task 2:\", task2(\"HeLLo WoRLd\"))\n",
+        "    print(\"Task 3:\", task3(\"HelloWorld\"))\n",
+        "    print(\"Task 4:\", task4(\"EngiNEEr\"))\n",
+        "    print(\"Task 5:\", task5(\"Data-Driven@2025!\"))\n",
+        "    print(\"Task 6: Area =\", task6(3, 4, 5))\n",
+        "\n",
+        "    names = [\"Alice\", \"Bob\", \"Charlie\"]\n",
+        "    task7(names)\n",
+        "\n",
+        "    print(\"Task 8:\", task8(\"  Hello, World!  \"))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "KMJHw9cQ6hqL",
+        "outputId": "3cd5c983-0785-4011-a5e9-4af72ebe1ea3"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Task 1: hello\n",
+            "Task 2: hEllO wOrlD\n",
+            "Task 3: elloorld\n",
+            "Task 4: Uppercase: 4, Lowercase: 4\n",
+            "Task 5: DataDriven\n",
+            "Task 6: Area = 6.0\n",
+            "Formatted Names Table:\n",
+            "\n",
+            "Alice                  Alice                   Alice\n",
+            "Bob                     Bob                      Bob\n",
+            "Charlie               Charlie                Charlie\n",
+            "Task 8: {'strip': 'Hello, World!', 'no_punctuation': '  Hello World  ', 'no_spaces': 'Hello,World!'}\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOpCWAix68BMN0zH7+7AU7G",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
